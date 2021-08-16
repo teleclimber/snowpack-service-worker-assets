@@ -1,0 +1,11 @@
+{
+  "name": "snowpack-service-worker-assets",
+  "version": "0.1.0",
+  "description": "Populate the cache.addAll([...]) array of your service worker with built assets",
+  "main": "index.js",
+  "author": "Olivier Forget <me@olivierforget.net>",
+  "license": "MIT",
+  "dependencies": {
+    "replace-in-file": "^6.2.0"
+  }
+}
