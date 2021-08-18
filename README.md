@@ -50,9 +50,9 @@ plugins: [
 	[
 		'snowpack-service-worker-assets',
 		{
-			patterns: ['**/*', '!**/*.map'],
-			worker: '^sw.*\.js',
-			replace: "'snowpack-service-worker-assets'"
+			patterns: ['**/*', '!sw.js', '!**/*.map'],	//required
+			worker: 'sw.js',	//required
+			replace: "'snowpack-service-worker-assets'"	// optional, default value shown
 		}
 	]
 ],
@@ -61,8 +61,8 @@ plugins: [
 There are three options:
 
 - `patterns` tells the plugin which files to add to the service worker. These patterns are fed straight to [fast-glob](https://github.com/mrmlnc/fast-glob#options-3) so refer to that project for help on patterns. The file patterns are relative to your snowpack build directory.
-- `worker` is a regular expression string that identifies the service worker file which will be modified.
-- `replace` is the string that the plugin will seek to replace in the service worker file. Note the nested quotes. Your service worker needs to include that string:
+- `worker` is the path (relative to build dir) of the service worker.
+- `replace` is the string that the plugin will seek to replace in the service worker file. Note the nested quotes in the example above. Your service worker needs to include that string:
 
 ```JS
 self.addEventListener('install', (event) => {

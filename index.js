@@ -4,31 +4,18 @@ const replace = require('replace-in-file');
 
 module.exports = function(snowpackConfig, pluginOptions) {
 	const opts = {
-		patterns: ['**/*', '!**/*.map'],
-		worker: '^sw.*\.js',
 		replace: "'snowpack-service-worker-assets'"
 	};
 	Object.assign(opts, pluginOptions);
+	if( !opts.patterns ) throw new Error("Please specify 'patterns' config option.");
+	if( !opts.worker ) throw new Error("Please specify 'worker' config option.")
 	return {
 		name: 'snowpack-service-worker-assets',
 		async optimize({ buildDirectory }) {
 			const all = await fast_glob(opts.patterns, {cwd:buildDirectory});
-
-			const sw_re = new RegExp(opts.worker);
-			let sw_file;
-			const assets = [];
-			all.forEach(f => {
-				if( sw_re.test(path.basename(f)) ) {
-					if( sw_file ) throw new Error(`Found two service workers: ${sw_file} and ${f}`);
-					sw_file = f;
-				}
-				assets.push(`'./${f}'`);
-			});
-
-			if( !sw_file ) throw new Error("failed to find service worker file");
-
+			const assets = all.map(f => `'./${f}'`);
 			const results = await replace({
-				files:path.join(buildDirectory, sw_file),
+				files:path.join(buildDirectory, opts.worker),
 				from: new RegExp(opts.replace),
 				to: assets.join(",\n")
 			});
