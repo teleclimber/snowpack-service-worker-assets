@@ -4,6 +4,7 @@
   "description": "Populate the cache.addAll([...]) array of your service worker with built assets",
   "main": "index.js",
   "author": "Olivier Forget <me@olivierforget.net>",
+  "homepage": "https://github.com/teleclimber/snowpack-service-worker-assets",
   "license": "MIT",
   "dependencies": {
     "fast-glob": "^3.2.7",
