@@ -20,7 +20,7 @@ module.exports = function(snowpackConfig, pluginOptions) {
 				to: assets.join(",\n")
 			});
 			if( results.length !== 1 ) throw new Error(`Replace should have affected 1 file, got ${results.length}`);
-			if( !results[0].hasChanged ) throw new Error(`Service worker file ${sw_file} was not changed. Is the replace string correct?`);
+			if( !results[0].hasChanged ) throw new Error(`Service worker file ${opts.worker} was not changed. Is the replace string correct?`);
 		}
 	};
 };
